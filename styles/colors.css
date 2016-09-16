@@ -1,0 +1,22 @@
+header[data-color='teal'] {
+	background: #009688;
+	color: #FFF;
+}
+
+label[for='nav-toggle'][data-color='white'] {
+	background: url(/images/icons/menu-white.svg) center/24px no-repeat;
+}
+
+label[for='nav-toggle'][data-color='black'] {
+	background: url(/images/icons/menu-black.svg) center/24px no-repeat;
+}
+
+label[for='nav-toggle'][data-color='white']:active {
+	background-color: rgba(255, 255, 255, 0.3);
+	background-color: #FFFFFF4D;
+}
+
+label[for='nav-toggle'][data-color='black']:active {
+	background-color: rgba(0, 0, 0, 0.12);
+	background-color: #0000001F;
+}
