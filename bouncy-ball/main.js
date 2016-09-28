@@ -61,7 +61,7 @@
 			this.ax = 0;
 			this.ay = 0.1;
 			this.radius = Math.random() * 10 + 5;
-			this.fillStyle = randomColor();
+			this.fillStyle = this.randomColor();
 			this.strokeStyle = undefined;
 		}
 		
