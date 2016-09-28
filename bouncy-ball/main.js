@@ -49,6 +49,13 @@
 				this.canvas.height = window.innerHeight;
 				this.render();
 			});
+			
+			window.addEventListener("devicemotion", (event) => {
+				this.objects.forEach(object => {
+					object.ax = -event.accelerationIncludingGravity.x * object.g;
+					object.ay = event.accelerationIncludingGravity.y * object.g;
+				});
+			}, true);
 		}
 	}
 	
@@ -56,10 +63,12 @@
 		constructor() {
 			this.x = window.innerWidth * Math.random();
 			this.y = window.innerHeight * Math.random();
-			this.vx = Math.random() * 5 - 2.5;
-			this.vy = Math.random() * 5 - 2.5;
+			this.vx = Math.random() * 10 - 5;
+			this.vy = Math.random() * 10 - 5;
 			this.ax = 0;
 			this.ay = 0.1;
+			this.g = 0.05;
+			this.e = 0.8;
 			this.radius = Math.random() * 10 + 5;
 			this.fillStyle = this.randomColor();
 			this.strokeStyle = undefined;
@@ -96,20 +105,20 @@
 			
 			if (this.x <= this.radius) {
 				this.x = this.radius;
-				this.vx = -this.vx * 0.99;
+				this.vx = -this.vx * this.e;
 			}
 			else if (this.x >= canvas.width - this.radius) {
 				this.x = canvas.width - this.radius;
-				this.vx = -this.vx * 0.99;
+				this.vx = -this.vx * this.e;
 			}
 			
 			if (this.y <= this.radius) {
 				this.y = this.radius;
-				this.vy = -this.vy * 0.99;
+				this.vy = -this.vy * this.e;
 			}
 			else if (this.y >= canvas.height - this.radius) {
 				this.y = canvas.height - this.radius;
-				this.vy = -this.vy * 0.99;
+				this.vy = -this.vy * this.e;
 			}
 		}
 		
@@ -121,11 +130,9 @@
 	
 	window.addEventListener("load", () => {
 		const canvas = new Canvas(document.getElementById("canvas"));
+		const addButton = document.getElementById("add-button");
 		
-		do {
-			canvas.addObject(new Circle());
-		} while (Math.random() > 0.1);
-		
+		canvas.addObject(new Circle());
 		canvas.render();
 		animate(canvas);
 		
@@ -133,5 +140,9 @@
 			canvas.render();
 			window.requestAnimationFrame(animate.bind(this, canvas));
 		}
+		
+		addButton.addEventListener("click", () => {
+			canvas.addObject(new Circle());
+		});
 	});
 }
