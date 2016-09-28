@@ -53,16 +53,16 @@
 	}
 	
 	class Circle {
-		constructor(x, y, radius, fillStyle, strokeStyle) {
-			this.x = x;
-			this.y = y;
+		constructor() {
+			this.x = window.innerWidth * Math.random();
+			this.y = window.innerHeight * Math.random();
 			this.vx = Math.random() * 5 - 2.5;
 			this.vy = Math.random() * 5 - 2.5;
 			this.ax = 0;
 			this.ay = 0.1;
-			this.radius = radius;
-			this.fillStyle = fillStyle;
-			this.strokeStyle = strokeStyle;
+			this.radius = Math.random() * 10 + 5;
+			this.fillStyle = randomColor();
+			this.strokeStyle = undefined;
 		}
 		
 		draw(context) {
@@ -112,22 +112,22 @@
 				this.vy = -this.vy * 0.99;
 			}
 		}
+		
+		function randomColor() {
+			let keys = Object.keys(Color);
+			return Color[keys[Math.trunc(keys.length * Math.random())]];
+		}
 	}
 	
 	window.addEventListener("load", () => {
 		const canvas = new Canvas(document.getElementById("canvas"));
 		
 		do {
-			canvas.addObject(new Circle(window.innerWidth * Math.random(), window.innerHeight * Math.random(), Math.random() * 10 + 5, randomColor()));
+			canvas.addObject(new Circle());
 		} while (Math.random() > 0.1);
 		
 		canvas.render();
 		animate(canvas);
-		
-		function randomColor() {
-			let keys = Object.keys(Color);
-			return Color[keys[Math.trunc(keys.length * Math.random())]];
-		}
 		
 		function animate(canvases) {
 			canvas.render();
