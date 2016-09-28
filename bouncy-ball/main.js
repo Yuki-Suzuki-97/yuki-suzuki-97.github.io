@@ -113,7 +113,7 @@
 			}
 		}
 		
-		function randomColor() {
+		randomColor() {
 			let keys = Object.keys(Color);
 			return Color[keys[Math.trunc(keys.length * Math.random())]];
 		}
